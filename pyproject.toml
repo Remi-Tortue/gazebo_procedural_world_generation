@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gazebo_procedural_world_generation"
+version = "0.0.1"
+authors = [
+  { name="Porée Rémi", email="remi.poree.pro@protonmail.com" },
+]
+description = "A package providing tools for procedural generation of gazebo worlds"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+
+[project.optional-dependencies]
+gui = [
+    # "scipy==1.11.4",
+]
