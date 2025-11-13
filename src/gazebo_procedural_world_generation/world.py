@@ -53,8 +53,10 @@ class World():
     
     def add_obstacle(self, obstacle_name, grid_pose, grid_scale):
         model_path = self.config["objects"][obstacle_name]["model_path"] # sdf file path
+        obstacle_config = utils.load_obstacle_config(obstacle_name)
+        obstacle_center = obstacle_config['obstacle']['center']
 
-        world_obstacle_pose = f"{grid_pose[0]*grid_scale} {grid_pose[1]*grid_scale} 0 0 0 0"  # x y z roll pitch yaw
+        world_obstacle_pose = f"{grid_pose[0]*grid_scale+obstacle_center[0]} {grid_pose[1]*grid_scale+obstacle_center[1]} {obstacle_center[2]} 0 0 0"  # x y z roll pitch yaw
         
         obstacle_sdf = f"""
             <include>

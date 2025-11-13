@@ -1,7 +1,6 @@
 import random
 from gazebo_procedural_world_generation import Grid
 
-
 #
 
 

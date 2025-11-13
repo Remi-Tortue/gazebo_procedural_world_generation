@@ -20,8 +20,14 @@ def load_config(config_file):
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
-
     return config
+
+def load_obstacle_config(obstacle_name):
+    pkg_path = get_package_path()
+    obstacle_config_path = pkg_path + "/models/" + obstacle_name + "/obstacle_config.yaml"
+    with open(obstacle_config_path, 'r') as f:
+        obstacle_config = yaml.safe_load(f)
+    return obstacle_config
 
 
 def footprint_to_obstacle_grid_shape(footprint, cell_size):
@@ -53,12 +59,10 @@ def load_grid_obstacles(config, cell_size):
         if 'grid_shape' in obstacles[key]:
             grid_shape = np.array(obstacles[key]['grid_shape'])
         else:
-            obstacle_config_path = pkg_path + "/models/" + obstacles[key]['obstacle_config_path']
-            with open(obstacle_config_path, 'r') as f:
-                obstacle_config = yaml.safe_load(f)
-
+            obstacle_config = load_obstacle_config(key)
             footprint = obstacle_config['obstacle']['footprint']
             grid_shape = footprint_to_obstacle_grid_shape(footprint, cell_size)
+            
         S[key] = grid_shape
     return S
 
