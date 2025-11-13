@@ -21,5 +21,7 @@ license-files = ["LICEN[CS]E*"]
 
 [project.optional-dependencies]
 gui = [
-    # "scipy==1.11.4",
+    "exact_cover>=1.5.0",
+    "noise>=1.2.2",
+    "importlib>=8.0.0",
 ]

@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="o2r_pi2_controllers",
+    name="gazebo_procedural_world_generation",
     version="0.0.1",
-    description="A package providing MPC controller based on acados for MM and base robots",
+    description="A package to generate gazebo procedural worlds",
     author="Porée Rémi",
-    author_email="remi.poree@laas.fr",
+    author_email="remi.poree.pro@protonmail.com",
     license="MIT",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
