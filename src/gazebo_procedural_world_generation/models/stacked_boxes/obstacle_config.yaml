@@ -1,3 +1,3 @@
 obstacle:
+    center: [0.6, 0.4, 0.]
     footprint: [1.2, 0.8]
-    scale: 1.

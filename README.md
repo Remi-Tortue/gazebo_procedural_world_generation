@@ -8,24 +8,41 @@ The goal is to be able to test detection and navigation algorithms on a variety 
 ```bash
 cd gazebo_procedural_world_generation
 pip install -e .
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:"$(pwd)/src/gazebo_procedural_world_generation/models"
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$(pwd)/src/gazebo_procedural_world_generation/models # If you’re using Gazebo Classic
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(pwd)/src/gazebo_procedural_world_generation/models # If you’re using Ignition / Gazebo Sim (Fortress, Garden, Harmonic)
 ```
 
 ## How it works
+Examples are available in `/examples`.
+
+Our algorithm work as follows :
 
 - Generate de grid.
+
 - File it with collision spaces.
+
 - Tile those spaces with obstacles.
+
 - Generate a world map by placing obstacles accordingly to the grid.
+
+
 
 Visualize the map via :
 ```bash
 gazebo worlds/procedural_world.world 
+or
+gz sim worlds/procedural_world.world 
 
 ```
 
 
 ## Overview
+- Grid class in `grid.py`.
+- World generation class in `world.py`.
+- Filling algorithms in `filling.py`.
+- - workspace_partitioning, perlin_noise
+- Tilling algorithms in `tilling.py`.
+- - dance_steps_tiling_patch
 
 ## Contributors
 - **Rémi Porée**

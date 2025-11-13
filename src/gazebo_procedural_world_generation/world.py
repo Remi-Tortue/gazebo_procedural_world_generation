@@ -11,24 +11,19 @@ class World():
 
         self.start = f"""<?xml version="1.0" ?>
         <sdf version="1.6">
-        <world name="{self.config["world"]["name"]}">
+            <world name="{self.config["world"]["name"]}">
 
-        <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
-            <ros>
-                <namespace>/gazebo</namespace>
-            </ros>
+            <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+                <ros>
+                    <namespace>/gazebo</namespace>
+                </ros>
 
-            <update_rate>1.0</update_rate>
+                <update_rate>1.0</update_rate>
             </plugin>
 
             <include>
             <uri>model://sun</uri>
             </include>
-
-            <!-- A ground plane -->
-            <!-- <include>
-            <uri>model://romea_grass_plane</uri>
-            </include> -->
 
             <include> 
                 <uri>model://ground_plane</uri> 
@@ -40,10 +35,11 @@ class World():
         self.end = """
         <!-- ************************************************************************** -->
 
-        </world>
+            </world>
         </sdf>
         """
         self.corpus = []
+        self.nb_obstacles = 0
 
     def compute_world(self):
         world = self.start
@@ -61,12 +57,14 @@ class World():
         world_obstacle_pose = f"{grid_pose[0]*grid_scale} {grid_pose[1]*grid_scale} 0 0 0 0"  # x y z roll pitch yaw
         
         obstacle_sdf = f"""
-        <include>
-            <uri>model://{model_path}</uri>
-            <pose>{world_obstacle_pose}</pose>
-        </include>
+            <include>
+                <name>{obstacle_name + str(self.nb_obstacles)}</name>
+                <uri>model://{model_path}</uri>
+                <pose>{world_obstacle_pose}</pose>
+            </include>
         """
         self.corpus.append(obstacle_sdf)
+        self.nb_obstacles += 1
         return
 
     def save_world(self, world_path = ""):

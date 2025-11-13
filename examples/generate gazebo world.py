@@ -24,6 +24,7 @@ if __name__ == "__main__":
     grid = Grid(w, h, cell_size)
 
     grid = filling.perlin_noise(grid, seed)
+    # grid = filling.workspace_partitioning(grid, seed)
 
     patches = grid.get_patches()
 
@@ -34,7 +35,7 @@ if __name__ == "__main__":
     color_grid = grid.clone() # for grid ploting
     patches_tiling_solutions = []
     for patch in patches:
-        tiling_solutions = tiling.dance_steps_tiling_patch(grid, patch, S, single_solution=True, seed = seed)
+        tiling_solutions = tiling.dance_steps_tiling_patch(grid, patch, S, single_solution=True, seed = 0)
         patches_tiling_solutions.append(tiling_solutions)
 
         i = 1

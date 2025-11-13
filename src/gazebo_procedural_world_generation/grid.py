@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import itertools
+import matplotlib as mpl
 
 
 #
@@ -191,7 +192,11 @@ class Grid:
 
     def show(self):
         """Visualize the grid using matplotlib."""
-        plt.imshow(self.grid)
+        plt.imshow(self.grid, vmin=0, vmax=self.grid.max(), cmap=mpl.colormaps['tab20'], )
+        # plt.xticks(np.arange(-0.5, self.grid.shape[1], 1), [])
+        # plt.yticks(np.arange(-0.5, self.grid.shape[0], 1), [])
+        # plt.grid(True, which='both', color='black', linestyle='-', linewidth=0.5)
+        plt.colorbar()  
         plt.show()
 
 

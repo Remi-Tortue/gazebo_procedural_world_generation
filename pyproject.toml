@@ -23,5 +23,7 @@ license-files = ["LICEN[CS]E*"]
 gui = [
     "exact_cover>=1.5.0",
     "noise>=1.2.2",
-    "more-itertools>=8.10.0"
+    "more-itertools>=8.10.0",
+    # "pytest>=6.2.5",
+    # "pytest-cov>=3.0.0",
 ]

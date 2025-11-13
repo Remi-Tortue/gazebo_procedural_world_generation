@@ -47,29 +47,20 @@ if __name__ == "__main__":
     color_grid.show()
 
     S = {}
-    S['big box'] =  np.array([[0,0],[1,0],[0,1],[1,1]])
-    S['horizontal bar'] = np.array([[0,0],[1,0]])
-    S['vertical bar'] = np.array([[0,0],[0,1]])
     S['box'] =  np.array([[0,0]])
+    S['big box'] =  np.array([[0,0],[1,0],[0,1],[1,1]])
+    # S['horizontal bar'] = np.array([[0,0],[1,0]])
+    # S['vertical bar'] = np.array([[0,0],[0,1]])
     
+    
+    color_grid = grid.clone() # for grid ploting
     patches_tiling_solutions = []
     for patch in patches:
         tiling_solutions = tiling.dance_steps_tiling_patch(grid, patch, S, single_solution=True, seed = 0)
         patches_tiling_solutions.append(tiling_solutions)
 
-        # for solution in tiling_solutions:
-        #     color_grid = grid.clone()
-        #     i = 1
-        #     for shape in solution:
-        #         for cell in (S[shape['name']]+np.array(shape['position'])).tolist():
-        #             color_grid.fill_cell(cell[0], cell[1], i)
-        #         i += 1
-        #     color_grid.show()
-
-    color_grid = grid.clone()
-    for solutions in patches_tiling_solutions:
         i = 1
-        for shape in solutions[0]:
+        for shape in tiling_solutions[0]:
             for cell in (S[shape['name']]+np.array(shape['position'])).tolist():
                 color_grid.fill_cell(cell[0], cell[1], i)
             i += 1

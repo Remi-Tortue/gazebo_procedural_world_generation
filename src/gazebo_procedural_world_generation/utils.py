@@ -24,8 +24,8 @@ def load_config(config_file):
     return config
 
 
-def footprint_to_obstacle_grid_shape(footprint, scale, cell_size):
-    real_footprint = np.array(footprint) * scale
+def footprint_to_obstacle_grid_shape(footprint, cell_size):
+    real_footprint = np.array(footprint)
     cell_footprint = real_footprint / cell_size
     grid_shape = []
     min_x = math.ceil(min(0, cell_footprint[0]))
@@ -50,16 +50,15 @@ def load_grid_obstacles(config, cell_size):
     S = {}
     for key in obstacles.keys():
         
-
         if 'grid_shape' in obstacles[key]:
             grid_shape = np.array(obstacles[key]['grid_shape'])
         else:
-            obstacle_config_path = pkg_path + obstacles[key]['obstacle_config_path']
+            obstacle_config_path = pkg_path + "/models/" + obstacles[key]['obstacle_config_path']
             with open(obstacle_config_path, 'r') as f:
                 obstacle_config = yaml.safe_load(f)
+
             footprint = obstacle_config['obstacle']['footprint']
-            scale = obstacle_config['obstacle']['scale']
-            grid_shape = footprint_to_obstacle_grid_shape(footprint, scale, cell_size)
+            grid_shape = footprint_to_obstacle_grid_shape(footprint, cell_size)
         S[key] = grid_shape
     return S
 
@@ -75,9 +74,9 @@ if __name__ == "__main__":
     cell_size = 1.
     grid = Grid(w, h, cell_size)
 
-    footprint = [1.2,0.8]
+    footprint = [-1.0, 1.0]
     scale = 1.0
-    grid_shape = footprint_to_obstacle_grid_shape(footprint, scale, cell_size)
+    grid_shape = footprint_to_obstacle_grid_shape(footprint, cell_size)
     print(grid_shape)
 
 
