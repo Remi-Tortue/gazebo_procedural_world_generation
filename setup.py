@@ -9,4 +9,6 @@ setup(
     license="MIT",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
+    setup_requires=["numpy"],  # Just numpy here
+    install_requires=["numpy"],  # Add any of your other dependencies here
 )
