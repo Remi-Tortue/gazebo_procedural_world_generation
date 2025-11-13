@@ -1,7 +1,6 @@
 import numpy as np
 import exact_cover as ec
 from gazebo_procedural_world_generation import Grid
-import random
 
 #
 
@@ -77,10 +76,10 @@ def dance_steps_tiling_patch(X:Grid, patch:list, shapes_dict:dict, single_soluti
         for row_index in solution:
             s, c = problem_rows[row_index]
             tile = {}
-            tile['position'] = c
             for key, value in shapes_dict.items():
                 if np.array_equal(s, value):
                     tile['name'] = key
+            tile['position'] = c
             tiling.append(tile)
         tiling_solutions.append(tiling)
     return tiling_solutions

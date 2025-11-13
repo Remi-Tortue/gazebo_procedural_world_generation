@@ -6,31 +6,24 @@ import matplotlib.pyplot as plt
 import importlib.util
 import time
 
-from gazebo_procedural_world_generation import filling_algorithms, utils_tiling
+from gazebo_procedural_world_generation import filling, tiling, utils
 from gazebo_procedural_world_generation import Grid
 
 #
 
 
 if __name__ == "__main__":
-    config_name = 'world_params'
+    config_file = 'world_params'
 
-    spec = importlib.util.find_spec("gazebo_procedural_world_generation")
-    if spec:
-        if spec.submodule_search_locations:
-            config_path = spec.submodule_search_locations[0] + "/config/" + config_name + ".yaml"
-            print(config_path)
-            with open(config_path, 'r') as f:
-                config = yaml.safe_load(f)
+    config = utils.load_config(config_file)
 
-    # seed = config["world"]["seed"]
-    seed=random.randint(0, 100)
-    # seed = 1
+    seed = config["world"]["seed"]
+    # seed=random.randint(0, 100)
     w = config["world"]["width"]
     h = config["world"]["height"]
-    cell = config["world"]["cell_size"]
+    cell_size = config["world"]["cell_size"]
 
-    grid = Grid(w, h, cell)
+    grid = Grid(w, h, cell_size)
 
     # grid.fill_cells((0,0), (grid.nx-1, 0))
     # grid.fill_cells((0,0), (0, grid.ny-1))
@@ -38,8 +31,8 @@ if __name__ == "__main__":
     # grid.fill_cells((grid.nx-1, grid.ny-1), (0, grid.ny-1))
 
 
-    grid.fuse_with(filling_algorithms.perlin_noise(w ,h, cell, seed))
-    # grid.fuse_with(filling_algorithms.workspace_partitioning(w ,h, cell, seed))
+    grid = filling.perlin_noise(grid, seed)
+    # grid = utils_filling.workspace_partitioning(grid, seed)
 
     patches = grid.get_patches()
 
@@ -61,7 +54,7 @@ if __name__ == "__main__":
     
     patches_tiling_solutions = []
     for patch in patches:
-        tiling_solutions = utils_tiling.dance_steps_tiling_patch(grid, patch, S, single_solution=True, seed = 0)
+        tiling_solutions = tiling.dance_steps_tiling_patch(grid, patch, S, single_solution=True, seed = 0)
         patches_tiling_solutions.append(tiling_solutions)
 
         # for solution in tiling_solutions:

@@ -1,0 +1,18 @@
+world:
+  name: "procedural_world"
+  seed: 1
+  width: 20.0        # meters
+  height: 20.0
+  cell_size: 2.
+  
+objects:
+  box:
+    model_path: "box/model.sdf"
+    obstacle_config_path: "/models/box/obstacle_config.yaml"
+    grid_shape: [[0, 0]]
+    weight: 2                 # optional weighting factor for random selection
+
+  stacked_boxes:
+    model_path: "stacked_boxes/model.sdf"
+    obstacle_config_path: "/models/stacked_boxes/obstacle_config.yaml"
+    weight: 2                 # optional weighting factor for random selection

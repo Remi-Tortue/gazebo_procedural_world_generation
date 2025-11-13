@@ -1,6 +1,7 @@
+import numpy as np
 from matplotlib import pyplot as plt
 import itertools
-import numpy as np
+
 
 #
 

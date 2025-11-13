@@ -1,13 +1,13 @@
 import random
-from gazebo_procedural_world_generation.scripts.utils_grid import Grid
+from gazebo_procedural_world_generation import Grid
 
 
 #
 
 
-def workspace_partitioning(w ,h, cell, seed, crouding_factor = 0.4):
+def workspace_partitioning(X:Grid, seed, crouding_factor = 0.4) -> Grid:
     random.seed(seed)
-    grid = Grid(w, h, cell)
+    grid = X.clone()
 
     crouding_factor = 1 - crouding_factor
     clustering_factor = 0.8
@@ -18,7 +18,7 @@ def workspace_partitioning(w ,h, cell, seed, crouding_factor = 0.4):
             if random.random() < crouding_factor:
                 grid.fill_cell(i,j)
 
-    grid_clustering = Grid(w, h, cell)
+    grid_clustering = X.clone()
     for i in range(grid.nx):
         for j in range(grid.ny):
             if not grid.cell(i,j):
@@ -29,19 +29,21 @@ def workspace_partitioning(w ,h, cell, seed, crouding_factor = 0.4):
 
     grid.inverse()
 
-    return grid
+    output = X.clone()
+    output.fuse_with(grid)
+    return output
 
 
 #
 
 
-def perlin_noise(w ,h, cell, seed, scale=5.0, threshold=0.2):
+def perlin_noise(X:Grid, seed, scale=5.0, threshold=0.2) -> Grid:
     try:
         from noise import pnoise2
     except ImportError:
         raise ImportError("The 'noise' library is required for Perlin noise generation. Please install it via 'pip install noise'.")
 
-    grid = Grid(w, h, cell)
+    grid = X.clone()
 
     for i in range(grid.nx):
         for j in range(grid.ny):
@@ -51,4 +53,6 @@ def perlin_noise(w ,h, cell, seed, scale=5.0, threshold=0.2):
             if noise_value > threshold:
                 grid.fill_cell(i,j)
 
-    return grid
+    output = X.clone()
+    output.fuse_with(grid)
+    return output

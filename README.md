@@ -8,6 +8,7 @@ The goal is to be able to test detection and navigation algorithms on a variety 
 ```bash
 cd gazebo_procedural_world_generation
 pip install -e .
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:"$(pwd)/src/gazebo_procedural_world_generation/models"
 ```
 
 ## How it works
@@ -16,6 +17,13 @@ pip install -e .
 - File it with collision spaces.
 - Tile those spaces with obstacles.
 - Generate a world map by placing obstacles accordingly to the grid.
+
+Visualize the map via :
+```bash
+gazebo worlds/procedural_world.world 
+
+```
+
 
 ## Overview
 
