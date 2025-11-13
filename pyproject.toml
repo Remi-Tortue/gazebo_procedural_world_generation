@@ -19,6 +19,7 @@ dependencies = [
       "noise>=1.2.2",
       "more-itertools>=8.10.0",
       "pathlib>=1.0.1",
+      "PyYAML"
     ]
 classifiers = [
     "Programming Language :: Python :: 3",
