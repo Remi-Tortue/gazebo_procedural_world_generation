@@ -11,4 +11,4 @@ jobs:
           python-version: '3.10'
       - run: pip install pytest pytest-cov
       - run: pip install -e .
-      - run: pytest --cov=gazebo_procedural_world_generation
+      - run: python3 pytest tests/test.py
